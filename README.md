@@ -3,6 +3,11 @@
 # CSC DDOS IMAGE
 ![image](https://github.com/user-attachments/assets/0bc75fe6-b704-41ff-87bf-25afc8f7d7ac)
 
+# MENU
+UDP FLOOD 
+SYN FLOOD
+HTTP FLOOD
+
 # 🔥 HOW TO USE 🔥
 ```
 git clone https://github.com/madanokr001/CSC-DDOS-TOOLS.git
