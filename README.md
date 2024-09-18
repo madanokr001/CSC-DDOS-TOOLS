@@ -1,4 +1,4 @@
-# mad & [online3312](https://github.com/madanokr001/CSC-DDOS-TOOLS/invitations)
+# madanokr001 & [online3312](https://github.com/madanokr001/CSC-DDOS-TOOLS/invitations)
 
 # CSC DDOS IMAGE
 ![image](https://github.com/user-attachments/assets/0bc75fe6-b704-41ff-87bf-25afc8f7d7ac)
