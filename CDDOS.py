@@ -64,7 +64,7 @@ while True:
 
     menu()
 
-    select = input(TextColors.WHITE + "CSC_DDOS:~$ : " + TextColors.RESET)
+    select = input("CSC_DDOS:~$ : ")
 
     # UDP FLOODING
 
