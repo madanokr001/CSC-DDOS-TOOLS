@@ -4,14 +4,8 @@
 # 🔥 HOW TO USE 🔥
 ```
 git clone https://github.com/madanokr001/CSC-DDOS-TOOLS.git
-```
-```
 cd CSC-DDOS-TOOLS
-```
-```
-ls
-```
-```
+pip install socket sys os requests threading random string scapy threading time
 python CDDOS.py
 ```
 
